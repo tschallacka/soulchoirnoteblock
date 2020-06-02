@@ -1,0 +1,7 @@
+{
+	"soul_sand_choir": {
+    	"category": "music",
+    	"subtitle": "soulchoirnoteblock.subtitle.soul_sand_choir",
+    	"sounds": [ "soulchoirnoteblock:sould_sand_choir" ]
+  	}
+}
