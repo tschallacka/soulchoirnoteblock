@@ -22,13 +22,14 @@ displayName="Soul Choir Noteblock" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 displayURL="https://tschallacka.de" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-#logoFile="examplemod.png" #optional
+logoFile="soulsandchoir.png" #optional
 # A text field displayed in the mod UI
 credits="Thanks to SoupMayoMaker on reddit for the inspiration" #optional
 # A text field displayed in the mod UI
 authors="Tschallacka" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-This mod adds a choir sound to noteblocks placed on soulsand
+This mod adds a choir sound to noteblocks placed on soulsand.
+To use the cow_bell sound that soulsand originally has, place a noteblock on a quartz block.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.

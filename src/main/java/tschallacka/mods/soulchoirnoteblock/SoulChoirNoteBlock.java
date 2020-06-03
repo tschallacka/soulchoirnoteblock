@@ -42,15 +42,6 @@ public class SoulChoirNoteBlock
     private static final Logger LOGGER = LogManager.getLogger();
 
     public SoulChoirNoteBlock() {
-        // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-        // Register the processIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-        // Register the doClientStuff method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
-
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -60,15 +51,12 @@ public class SoulChoirNoteBlock
     @SubscribeEvent 
 	public void onNotePlayed(final Play played) 
     {
-    	LOGGER.debug("Sound event plays");
 		BlockPos pos = played.getPos();
 		BlockPos down = pos.down();
 		IWorld world = played.getWorld();
 		if(!world.isRemote()) {
-			
     		Block block = world.getBlockState(down).getBlock();
-    		if(block == Blocks.SOUL_SAND) {
-    			
+    		if(block == Blocks.SOUL_SAND) {    			
     			
     			ResourceLocation soundLocation = new ResourceLocation(MODID, CHOIR);
     			SoundEvent sound = new SoundEvent(soundLocation);
@@ -79,58 +67,36 @@ public class SoulChoirNoteBlock
     			
     		    int height = state.get(NoteBlock.NOTE);	    		    
     		    float pitch = (float)Math.pow(2.0D, (double)(height - 12) / 12.0D);
-    			world.playSound(null, played.getPos(), sound, SoundCategory.MUSIC,3.0f, pitch);
+    			world.playSound(null, played.getPos(), RegistryEvents.CHOIR_SOUND, SoundCategory.MUSIC,3.0f, pitch);
     			world.addParticle(ParticleTypes.NOTE, (double)pos.getX() + 0.5D, (double)pos.getY() + 1.2D, (double)pos.getZ() + 0.5D, (double)height / 24.0D, 0.0D, 0.0D);
     			played.setCanceled(true);
     			;
     		}
+    		else if(block == Blocks.QUARTZ_BLOCK) 
+    		{    			
+    			played.setInstrument(NoteBlockInstrument.COW_BELL);
+    		}
 		}
 		
 	}
-    
-    @SuppressWarnings("deprecation")
-	private void setup(final FMLCommonSetupEvent event)
-    {
-    	
-       
-    }
-
-    private void doClientStuff(final FMLClientSetupEvent event) {
-        
-    }
-
-    private void enqueueIMC(final InterModEnqueueEvent event)
-    {
-    
-    }
-
-    private void processIMC(final InterModProcessEvent event)
-    {
-     
-    }
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(FMLServerStartingEvent event) {
-     
-    }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents { 
+    	static final SoundEvent CHOIR_SOUND;
+    	
+    	static {
+    		ResourceLocation choir = new ResourceLocation(MODID, CHOIR);
+    	    CHOIR_SOUND  = new SoundEvent(choir).setRegistryName(CHOIR);
+    	}
+    	
     	@SubscribeEvent
     	public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
-    		ResourceLocation choir = new ResourceLocation(MODID, CHOIR);
-    	    SoundEvent choir_short  = new SoundEvent(choir).setRegistryName(CHOIR);
     		final SoundEvent[] soundEvents = {
-    				choir_short
+    				CHOIR_SOUND
     		};
     		event.getRegistry().registerAll(soundEvents);
     	}
-    	
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-           
-        }
     }
 }
