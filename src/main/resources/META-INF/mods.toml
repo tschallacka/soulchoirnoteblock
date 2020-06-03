@@ -20,7 +20,7 @@ displayName="Soul Choir Noteblock" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
 #updateJSONURL="http://myurl.me/" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
-displayURL="https://tschallacka.de" #optional
+displayURL="https://www.curseforge.com/minecraft/mc-mods/soul-sand-choir-noteblock" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="soulsandchoir.png" #optional
 # A text field displayed in the mod UI
@@ -31,5 +31,8 @@ authors="Tschallacka" #optional
 description='''
 This mod adds a choir sound to noteblocks placed on soulsand.
 To use the cow_bell sound that soulsand originally has, place a noteblock on a quartz block.
+
+This mod was inspired by a thread on reddit by SoupMayoMaker.
+So long, and thanks for all the fish.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
